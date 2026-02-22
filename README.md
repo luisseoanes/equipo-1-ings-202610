@@ -59,4 +59,3 @@ Para cumplir con las restricciones severas de hardware en móviles, el proyecto 
 | **Valentina** | Backend Developer | Orquestación, sistema RAG y lógica de negocio clínica. |
 | **Rafa** | Backend Developer/QA | Integración JNI, motor de reglas y persistencia local. |
 
----
