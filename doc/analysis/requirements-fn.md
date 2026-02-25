@@ -20,6 +20,7 @@ Scenario: Envío de consulta escrita
   Y presiona el botón enviar
   ENTONCES el sistema recibe la consulta para su procesamiento
 ```
+**Prioridad:** P0
 ---
 
 ## RF-02 – Validación de campo vacío
@@ -38,6 +39,7 @@ Scenario: Intento de envío sin texto
   ENTONCES el sistema bloquea el envío
   Y muestra el mensaje "Debe ingresar una consulta"
 ```
+**Prioridad:** P0
 ---
 
 ## RF-03 – Validación de longitud máxima de consulta
@@ -56,6 +58,7 @@ Scenario: Consulta supera el límite permitido
   ENTONCES el sistema impide el envío
   Y muestra un mensaje indicando que se superó el límite permitido
 ```
+**Prioridad:** P1
 ---
 
 ## RF-04 – Captura de consulta mediante voz
@@ -73,6 +76,7 @@ Scenario: Inicio de grabación
   CUANDO la usuaria presiona el botón de grabación
   ENTONCES el sistema inicia la captura de audio
 ```
+**Prioridad:** P1
 ---
 
 ## RF-05 – Transcripción local de audio
@@ -91,6 +95,7 @@ Scenario: Conversión de audio a texto
   ENTONCES genera una transcripción en texto
   Y no realiza comunicaciones externas
 ```
+**Prioridad:** P1
 ---
 
 ## RF-06 – Clasificación temática de la consulta
@@ -108,6 +113,7 @@ Scenario: Consulta enviada
   CUANDO el sistema la analiza
   ENTONCES determina si pertenece al dominio obstétrico
 ```
+**Prioridad:** P0
 ---
 
 ## RF-07 – Rechazo de consulta fuera del dominio
@@ -126,6 +132,7 @@ Scenario: Consulta no obstétrica
   ENTONCES muestra un mensaje indicando que está fuera del alcance de la aplicación
   Y no genera respuesta clínica
 ```
+**Prioridad:** P0
 ---
 
 ## RF-08 – Búsqueda en base de casos clínicos predefinidos
@@ -143,6 +150,7 @@ Scenario: Coincidencia encontrada
   CUANDO existe coincidencia en la base de casos clínicos
   ENTONCES el sistema selecciona la respuesta almacenada
 ```
+**Prioridad:** P0
 ---
 
 ## RF-09 – Generación de respuesta mediante modelo local
@@ -162,6 +170,7 @@ Scenario: Sin coincidencia en base predefinida
   ENTONCES ejecuta el modelo de lenguaje local
   Y genera una respuesta clínica
 ```
+**Prioridad:** P0
 ---
 
 ## RF-10 – Control de tiempo máximo de inferencia
@@ -180,6 +189,7 @@ Scenario: Modelo excede tiempo permitido
   ENTONCES el sistema cancela la ejecución
   Y muestra un mensaje de error controlado
 ```
+**Prioridad:** P1
 ---
 
 ## RF-11 – Detección de emergencia obstétrica
@@ -197,6 +207,7 @@ Scenario: Consulta con indicadores de riesgo
   CUANDO el sistema la analiza
   ENTONCES la clasifica como emergencia
 ```
+**Prioridad:** P0
 ---
 
 ## RF-12 – Etiquetado del nivel de urgencia
@@ -214,6 +225,7 @@ Scenario: Respuesta generada
   CUANDO el sistema muestra la respuesta
   ENTONCES incluye una etiqueta visible "URGENTE" o "RUTINA"
 ```
+**Prioridad:** P0
 ---
 
 ## RF-13 – Inclusión de recomendaciones inmediatas en emergencias
@@ -231,6 +243,7 @@ Scenario: Emergencia confirmada
   CUANDO el sistema genera la respuesta
   ENTONCES incluye recomendaciones de acción inmediata
 ```
+**Prioridad:** P0
 ---
 
 ## RF-14 – Presentación en lenguaje clínico claro
@@ -247,6 +260,7 @@ Scenario: Respuesta clínica generada
   DADO que el sistema genera una respuesta
   ENTONCES la información se presenta en lenguaje claro y preciso
 ```
+**Prioridad:** P0
 ---
 
 ## RF-15 – Respuesta sin expresiones conversacionales
@@ -263,6 +277,7 @@ Scenario: Generación de respuesta
   DADO que el sistema genera una respuesta
   ENTONCES no incluye saludos ni expresiones coloquiales
 ```
+**Prioridad:** P1
 ---
 
 ## RF-16 – Respuesta en un único turno
@@ -281,6 +296,7 @@ Scenario: Respuesta generada
   ENTONCES entrega una única respuesta completa
   Y no solicita datos adicionales
 ```
+**Prioridad:** P1
 ---
 
 ## RF-17 – Inclusión obligatoria de advertencia clínica
@@ -297,6 +313,7 @@ Scenario: Mostrar advertencia
   DADO que el sistema genera una respuesta
   ENTONCES incluye una advertencia visible indicando que no sustituye el criterio profesional
 ```
+**Prioridad:** P1
 ---
 
 ## RF-18 – No almacenamiento persistente de consultas
@@ -314,6 +331,7 @@ Scenario: Consulta procesada
   CUANDO el sistema la procesa
   ENTONCES no guarda la consulta en almacenamiento persistente
 ```
+**Prioridad:** P0
 ---
 
 ## RF-19 – No almacenamiento persistente de respuestas
@@ -330,6 +348,7 @@ Scenario: Respuesta generada
   DADO que el sistema genera una respuesta
   ENTONCES no la almacena en almacenamiento persistente
 ```
+**Prioridad:** P0
 ---
 
 ## RF-20 – Ausencia l visible
@@ -347,6 +366,7 @@ Scenario: Reinicio de aplicación
   ENTONCES la interfaz se muestra limpia
   Y no presenta información previa
 ```
+**Prioridad:** P0
 ---
 
 ## RF-21 – Procesamiento independiente por consulta
@@ -364,6 +384,7 @@ Scenario: Nueva consulta
   CUANDO la usuaria envía una nueva consulta
   ENTONCES el sistema no utiliza información anterior en la generación de respuesta
 ```
+**Prioridad:** P1
 ---
 
 ## RF-22 – Indicador visual de procesamiento
@@ -382,6 +403,7 @@ Scenario: Consulta en procesamiento
   ENTONCES muestra un indicador visual
   Y lo oculta cuando la respuesta está disponible
 ```
+**Prioridad:** P1
 ---
 
 ## RF-23 – Acceso directo a la pantalla de consulta
@@ -399,6 +421,7 @@ Scenario: Inicio de aplicación
   ENTONCES se muestra inmediatamente la pantalla de consulta
   Y no se presentan pantallas intermedias
 ```
+**Prioridad:** P2
 ---
 
 ## RF-24 – Interfaz fija sin configuración
@@ -416,6 +439,7 @@ Scenario: Uso normal de la aplicación
   ENTONCES no existe menú de configuración
   Y no existen opciones de personalización
 ```
+**Prioridad:** P2
 ---
 
 
