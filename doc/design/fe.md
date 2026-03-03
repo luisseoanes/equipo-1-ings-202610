@@ -1,4 +1,3 @@
-cat << 'EOF' > fe.md
 # Análisis y Decisión de Framework Frontend
 
 ## Introducción
