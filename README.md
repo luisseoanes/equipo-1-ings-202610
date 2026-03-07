@@ -59,3 +59,15 @@ Para cumplir con las restricciones severas de hardware en móviles, el proyecto 
 | **Valentina** | Backend Developer | Orquestación, sistema RAG y lógica de negocio clínica. |
 | **Rafa** | Backend Developer/QA | Integración JNI, motor de reglas y persistencia local. |
 
+---
+
+## 📂 Tabla de Navegación
+
+| 🚀 Sección                                                         | 📄 Descripción                                                                                                 |
+| ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| 📚 [Documentación principal](./doc/README.md)                      | Carpeta principal donde se encuentra toda la documentación del proyecto.                                       |
+| 📊 [Carpeta de análisis](./doc/analysis/)                          | Carpeta que contiene toda la documentación relacionada con la fase de análisis del sistema.                    |
+| 🧭 [Navegación de análisis](./doc/analysis/index.md)               | Documento de navegación hacia los requisitos funcionales y no funcionales del sistema.                         |
+| 📋 [Requisitos Funcionales](./doc/analysis/requirements-fn.md)     | Documento que describe las funcionalidades que el sistema debe proporcionar.                                   |
+| ⚙️ [Requisitos No Funcionales](./doc/analysis/requirements-nfn.md) | Documento que describe las características de calidad del sistema como rendimiento, seguridad y escalabilidad. |
+
