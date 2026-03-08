@@ -11,7 +11,7 @@ El sistema debe proporcionar respuestas rápidas y fluidas para garantizar su ut
 ### 🔎 Criterios de aceptación
 - El sistema responde a las consultas en un tiempo ≤ 3 segundos en al menos el 95 % de los casos.  
 - La aplicación inicia completamente en ≤ 5 segundos en dispositivos compatibles.  
-- El sistema permite múltiples consultas consecutivas sin degradación perceptible del rendimiento.  
+- El sistema puede procesar al menos 10 consultas consecutivas sin degradación significativa del rendimiento.  
 
 ### 📌 Prioridad  
 P0  
@@ -36,7 +36,6 @@ La interfaz del sistema debe ser fácil de usar y permitir que el personal de sa
 - El usuario puede realizar una consulta en un máximo de tres interacciones.  
 - El sistema presenta respuestas claras y comprensibles.  
 - El sistema permite interacción mediante voz.  
-- El sistema puede diferenciar niveles de urgencia mediante palabras clave.  
 - El sistema puede ser utilizado sin capacitación previa.  
 
 ### 📌 Prioridad  
@@ -86,7 +85,7 @@ El sistema debe garantizar la protección de la información ingresada por el us
 - La información ingresada se almacena únicamente de forma local.  
 - El sistema no transmite datos a servidores externos.  
 - El sistema muestra advertencias sobre el uso clínico.  
-- El acceso a los datos está protegido por el sistema operativo.  
+- El acceso a los datos está protegido por los mecanismos de seguridad del sistema operativo Android.  
 
 ### 📌 Prioridad  
 P0  
@@ -108,7 +107,7 @@ P0
 El sistema debe garantizar un funcionamiento continuo y estable, manejando errores de forma controlada sin provocar cierres inesperados y proporcionando mensajes claros al usuario.
 
 ### 🔎 Criterios de aceptación
-- El sistema no se cierra inesperadamente.  
+- El sistema mantiene una tasa de fallos menor al 1 % durante sesiones de uso normales.  
 - El sistema muestra mensajes claros en caso de error.  
 - El sistema permanece disponible mientras el dispositivo esté operativo.  
 
@@ -134,7 +133,7 @@ El sistema debe utilizar eficientemente los recursos del dispositivo, manteniend
 ### 🔎 Criterios de aceptación
 - El tamaño total de la aplicación es ≤ 2.5 GB.  
 - El consumo de memoria RAM es ≤ 1 GB durante la ejecución.  
-- El sistema optimiza el uso del CPU.  
+- El uso promedio del CPU no supera el 60 % durante consultas normales.  
 
 ### 📌 Prioridad  
 P1  
@@ -157,11 +156,11 @@ El sistema debe estar diseñado de forma modular y documentada para facilitar fu
 
 ### 🔎 Criterios de aceptación
 - El sistema utiliza arquitectura modular.  
-- El código está documentado.  
-- El sistema permite actualización del conocimiento.  
+- El código fuente incluye documentación técnica en los módulos principales.  
+- El sistema permite actualización del conocimiento sin modificar la aplicación principal.  
 
 ### 📌 Prioridad  
-P1  
+P2  
 
 ### 📖 Notas de implementación  
 - Separación en módulos Frontend, Backend e IA.  
@@ -172,3 +171,70 @@ P1
 5  
 
 ---
+
+# 📚 NF-08 – Disponibilidad  
+## Acceso inmediato al sistema en cualquier momento
+
+### Descripción  
+El sistema debe estar disponible para el usuario en cualquier momento en que el dispositivo esté operativo, permitiendo realizar consultas médicas sin interrupciones ni dependencias de servicios externos.
+
+### 🔎 Criterios de aceptación
+- El sistema puede utilizarse sin necesidad de conexión a internet.  
+- La aplicación puede ejecutarse siempre que el dispositivo esté encendido y tenga recursos disponibles.  
+- El sistema no depende de servicios externos para responder consultas.  
+
+### 📌 Prioridad  
+P0  
+
+### 📖 Notas de implementación  
+- Ejecución completamente local.  
+- Eliminación de dependencias externas.  
+
+> **Puntos:**  
+5  
+
+---
+
+# 📚 NF-09 – Escalabilidad del conocimiento  
+## Capacidad de ampliar el conocimiento clínico del sistema
+
+### Descripción  
+El sistema debe permitir ampliar o actualizar el conocimiento clínico del modelo utilizado para mejorar la calidad de las respuestas sin afectar la estabilidad de la aplicación.
+
+### 🔎 Criterios de aceptación
+- El sistema permite incorporar nuevas bases de conocimiento.  
+- Las actualizaciones no afectan el funcionamiento de la aplicación existente.  
+- El sistema mantiene compatibilidad con versiones anteriores de datos.  
+
+### 📌 Prioridad  
+P2  
+
+### 📖 Notas de implementación  
+- Uso de bases de conocimiento modulares.  
+- Posibilidad de actualización mediante paquetes de datos.  
+
+> **Puntos:**  
+5  
+
+---
+
+# 📚 NF-10 – Compatibilidad  
+## Funcionamiento en diferentes dispositivos Android
+
+### Descripción  
+El sistema debe ser compatible con diferentes dispositivos Android modernos, asegurando que la aplicación funcione correctamente en distintos fabricantes, resoluciones de pantalla y configuraciones de hardware.
+
+### 🔎 Criterios de aceptación
+- El sistema funciona en al menos tres modelos diferentes de dispositivos Android.  
+- La aplicación mantiene funcionalidad completa en resoluciones de pantalla variadas.  
+- No existen errores críticos asociados al hardware del dispositivo.  
+
+### 📌 Prioridad  
+P1  
+
+### 📖 Notas de implementación  
+- Pruebas en múltiples dispositivos físicos o emuladores.  
+- Uso de componentes estándar del SDK de Android.  
+
+> **Puntos:**  
+5  
