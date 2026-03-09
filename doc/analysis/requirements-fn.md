@@ -431,5 +431,63 @@ Scenario: Inicio de aplicación
 
 ---
 
+## RF-21 – Visualización del historial de conversaciones
 
+**Descripción**
+El sistema debe registrar automáticamente cada par consulta-respuesta generado y permitir al profesional de salud consultarlo posteriormente en una pantalla de historial de solo lectura. El historial no es interactivo ni reutilizable.
 
+**Criterios de aceptación**
+
+```gherkin
+Feature: Registro automático de conversaciones
+
+Scenario: Almacenamiento tras respuesta generada
+  DADO que el sistema ha generado una respuesta clínica
+  CUANDO la respuesta es presentada al usuario
+  ENTONCES el sistema almacena el par consulta-respuesta en el historial local
+  Y registra la marca temporal del momento de generación
+  Y registra el nivel de urgencia clasificado
+  Y no solicita ninguna acción al usuario para completar el registro
+
+Feature: Visualización del historial
+
+Scenario: Acceso al historial existente
+  DADO que existen registros previos en el historial
+  CUANDO el usuario accede a la pantalla de historial
+  ENTONCES el sistema muestra las conversaciones en orden cronológico 
+  Y cada entrada muestra la consulta, la respuesta y el nivel de urgencia
+  Y ninguna entrada permite ser seleccionada para reenvío o edición
+
+Feature: Independencia entre sesiones
+
+Scenario: El historial no afecta el procesamiento de nuevas consultas
+  DADO que existen registros previos en el historial
+  CUANDO el usuario envía una nueva consulta
+  ENTONCES el sistema procesa la consulta sin utilizar información de registros anteriores
+  Y la respuesta generada es independiente del contenido del historial
+```
+
+**Prioridad:** P0
+**Puntos:** 5
+
+---
+
+## RF-22 – Retención automática del historial
+
+**Descripción**
+El sistema debe eliminar automáticamente los registros del historial con una antigüedad superior a 180 días (6 meses) mediante una tarea programada en background, sin intervención del usuario. 
+
+**Criterios de aceptación**
+```gherkin
+Feature: Eliminación automática por política de retención
+
+Scenario: Purga periódica de registros vencidos
+  DADO que existen registros con antigüedad superior a 180 días
+  CUANDO el sistema ejecuta la tarea de purga programada
+  ENTONCES elimina todos los registros cuya marca temporal sea anterior al límite de 180 días
+  Y no elimina registros dentro del período de retención vigente
+  Y no requiere intervención del usuario para ejecutarse
+```
+
+**Prioridad:** P1
+**Puntos:** 3
