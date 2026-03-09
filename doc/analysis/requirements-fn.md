@@ -367,69 +367,7 @@ Scenario: Mostrar advertencia
 
 ---
 
-## RF-18 – No almacenamiento persistente de consultas
-
-**Descripción**
-El sistema no debe almacenar las consultas en almacenamiento persistente del dispositivo.
-
-**Criterios de aceptación**
-
-```gherkin
-Feature: No persistencia de consultas
-
-Scenario: Consulta procesada
-  DADO que la usuaria realiza una consulta
-  CUANDO el sistema la procesa
-  ENTONCES no guarda la consulta en almacenamiento persistente
-```
-
-**Prioridad:** P0
-**Puntos :** 3
-
----
-
-## RF-19 – No almacenamiento persistente de respuestas
-
-**Descripción**
-El sistema no debe almacenar las respuestas generadas en almacenamiento persistente.
-
-**Criterios de aceptación**
-
-```gherkin
-Feature: No persistencia de respuestas
-
-Scenario: Respuesta generada
-  DADO que el sistema genera una respuesta
-  ENTONCES no la almacena en almacenamiento persistente
-```
-
-**Prioridad:** P0
-**Puntos :** 3
-
----
-
-## RF-20 – Ausencia l visible
-
-**Descripción**
-La aplicación no debe mostrar historial de consultas ni respuestas anteriores.
-
-**Criterios de aceptación**
-
-```gherkin
-Feature: Sin historial visible
-
-Scenario: Reinicio de aplicación
-  DADO que la aplicación se cierra y se vuelve a abrir
-  ENTONCES la interfaz se muestra limpia
-  Y no presenta información previa
-```
-
-**Prioridad:** P0
-**Puntos :** 2
-
----
-
-## RF-21 – Procesamiento independiente por consulta
+## RF-18 – Procesamiento independiente por consulta
 
 **Descripción**
 Cada consulta debe procesarse sin utilizar información de consultas anteriores.
@@ -450,7 +388,7 @@ Scenario: Nueva consulta
 
 ---
 
-## RF-22 – Indicador visual de procesamiento
+## RF-19 – Indicador visual de procesamiento
 
 **Descripción**
 El sistema debe mostrar un indicador visual mientras procesa la consulta.
@@ -472,7 +410,7 @@ Scenario: Consulta en procesamiento
 
 ---
 
-## RF-23 – Acceso directo a la pantalla de consulta
+## RF-20 – Acceso directo a la pantalla de consulta
 
 **Descripción**
 Al iniciar la aplicación, debe mostrarse directamente la pantalla de consulta.
@@ -493,25 +431,5 @@ Scenario: Inicio de aplicación
 
 ---
 
-## RF-24 – Interfaz fija sin configuración
-
-**Descripción**
-La aplicación no debe ofrecer opciones de configuración ni personalización.
-
-**Criterios de aceptación**
-
-```gherkin
-Feature: Interfaz sin configuración
-
-Scenario: Uso normal de la aplicación
-  DADO que la aplicación está en ejecución
-  ENTONCES no existe menú de configuración
-  Y no existen opciones de personalización
-```
-
-**Prioridad:** P2
-**Puntos :** 1
-
----
 
 
