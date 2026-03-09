@@ -1,7 +1,5 @@
 # Requisitos Funcionales
 
-## ARRO
-
 ---
 
 ## RF-01 – Ingreso de consulta obstétrica por texto
@@ -454,7 +452,7 @@ Feature: Visualización del historial
 Scenario: Acceso al historial existente
   DADO que existen registros previos en el historial
   CUANDO el usuario accede a la pantalla de historial
-  ENTONCES el sistema muestra las conversaciones en orden cronológico 
+  ENTONCES el sistema muestra las conversaciones en orden cronológico
   Y cada entrada muestra la consulta, la respuesta y el nivel de urgencia
   Y ninguna entrada permite ser seleccionada para reenvío o edición
 
@@ -475,9 +473,10 @@ Scenario: El historial no afecta el procesamiento de nuevas consultas
 ## RF-22 – Retención automática del historial
 
 **Descripción**
-El sistema debe eliminar automáticamente los registros del historial con una antigüedad superior a 180 días (6 meses) mediante una tarea programada en background, sin intervención del usuario. 
+El sistema debe eliminar automáticamente los registros del historial con una antigüedad superior a 180 días (6 meses) mediante una tarea programada en background, sin intervención del usuario.
 
 **Criterios de aceptación**
+
 ```gherkin
 Feature: Eliminación automática por política de retención
 
