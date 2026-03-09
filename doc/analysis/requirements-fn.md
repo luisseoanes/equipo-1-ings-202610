@@ -1,6 +1,6 @@
 # Requisitos Funcionales
 
-## ARRO
+## ObsIA
 
 ---
 
@@ -410,24 +410,25 @@ Scenario: Consulta en procesamiento
 
 ---
 
-## RF-20 – Acceso directo a la pantalla de consulta
+## RF-20 – Construcción de pantalla Home (Aterrizaje)
 
 **Descripción**
-Al iniciar la aplicación, debe mostrarse directamente la pantalla de consulta.
+La aplicación debe contar con una pantalla principal (Home) que actúe como el punto de aterrizaje inmediato al abrir la aplicación, permitiendo al usuario iniciar una consulta de forma directa.
 
 **Criterios de aceptación**
 
 ```gherkin
-Feature: Acceso directo
+Feature: Pantalla de inicio de la aplicación
 
-Scenario: Inicio de aplicación
-  DADO que la usuaria abre la aplicación
-  ENTONCES se muestra inmediatamente la pantalla de consulta
-  Y no se presentan pantallas intermedias
+  Scenario: Aterrizaje al abrir la app
+    DADO que la usuaria abre la aplicación
+    ENTONCES el sistema muestra inmediatamente la pantalla de Home
+    Y no se presentan pantallas de carga (splash screens) o intermedias innecesarias
+    Y la pantalla ofrece las opciones para iniciar una consulta nueva
 ```
 
-**Prioridad:** P2
-**Puntos :** 1
+**Prioridad:** P0
+**Puntos:** 2
 
 ---
 
