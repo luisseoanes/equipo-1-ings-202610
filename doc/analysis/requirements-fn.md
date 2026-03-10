@@ -1,9 +1,3 @@
-# Requisitos Funcionales
-
-## ARRO
-
----
-
 ## RF-01 – Ingreso de consulta obstétrica por texto
 
 **Descripción**
@@ -19,44 +13,12 @@ Scenario: Envío de consulta escrita
   CUANDO la usuaria escribe una consulta válida
   Y presiona el botón enviar
   ENTONCES el sistema recibe la consulta para su procesamiento
-```
-
-**Prioridad:** P0
-**Puntos :** 2
-
----
-
-## RF-02 – Validación de campo vacío
-
-**Descripción**
-El sistema no debe permitir el envío de consultas vacías.
-
-**Criterios de aceptación**
-
-```gherkin
-Feature: Validación de campo obligatorio
 
 Scenario: Intento de envío sin texto
   DADO que el campo de texto está vacío
   CUANDO la usuaria presiona enviar
   ENTONCES el sistema bloquea el envío
   Y muestra el mensaje "Debe ingresar una consulta"
-```
-
-**Prioridad:** P0
-**Puntos :** 1
-
----
-
-## RF-03 – Validación de longitud máxima de consulta
-
-**Descripción**
-La consulta no debe exceder los 500 caracteres.
-
-**Criterios de aceptación**
-
-```gherkin
-Feature: Validación de longitud máxima
 
 Scenario: Consulta supera el límite permitido
   DADO que la usuaria escribe más de 500 caracteres
@@ -65,55 +27,12 @@ Scenario: Consulta supera el límite permitido
   Y muestra un mensaje indicando que se superó el límite permitido
 ```
 
-**Prioridad:** P1
-**Puntos :** 1
-
----
-
-## RF-04 – Captura de consulta mediante voz
-
-**Descripción**
-La aplicación debe permitir capturar una consulta mediante grabación de audio utilizando el micrófono del dispositivo.
-
-**Criterios de aceptación**
-
-```gherkin
-Feature: Captura de audio
-
-Scenario: Inicio de grabación
-  DADO que el micrófono está habilitado
-  CUANDO la usuaria presiona el botón de grabación
-  ENTONCES el sistema inicia la captura de audio
-```
-
-**Prioridad:** P1
+**Prioridad:** P0
 **Puntos :** 3
 
 ---
 
-## RF-05 – Transcripción local de audio
-
-**Descripción**
-El sistema debe transcribir el audio capturado a texto utilizando procesamiento local sin conexión a internet.
-
-**Criterios de aceptación**
-
-```gherkin
-Feature: Transcripción offline
-
-Scenario: Conversión de audio a texto
-  DADO que existe una grabación finalizada
-  CUANDO el sistema procesa el audio
-  ENTONCES genera una transcripción en texto
-  Y no realiza comunicaciones externas
-```
-
-**Prioridad:** P1
-**Puntos :** 5
-
----
-
-## RF-06 – Clasificación temática de la consulta
+## RF-02 – Clasificación temática de la consulta
 
 **Descripción**
 El sistema debe clasificar si la consulta pertenece al dominio obstétrico.
@@ -134,7 +53,7 @@ Scenario: Consulta enviada
 
 ---
 
-## RF-07 – Rechazo de consulta fuera del dominio
+## RF-03 – Rechazo de consulta fuera del dominio
 
 **Descripción**
 Si la consulta no pertenece al dominio obstétrico, el sistema debe rechazarla sin generar contenido clínico.
@@ -156,7 +75,7 @@ Scenario: Consulta no obstétrica
 
 ---
 
-## RF-08 – Búsqueda en base de casos clínicos predefinidos
+## RF-04 – Búsqueda en base de casos clínicos predefinidos
 
 **Descripción**
 El sistema debe verificar si la consulta coincide con un caso clínico predefinido almacenado localmente.
@@ -177,7 +96,7 @@ Scenario: Coincidencia encontrada
 
 ---
 
-## RF-09 – Generación de respuesta mediante modelo local
+## RF-05 – Generación de respuesta mediante modelo local
 
 **Descripción**
 Si no existe coincidencia en la base de casos, el sistema debe generar la respuesta utilizando el modelo de lenguaje local.
@@ -200,7 +119,176 @@ Scenario: Sin coincidencia en base predefinida
 
 ---
 
-## RF-10 – Control de tiempo máximo de inferencia
+## RF-06 – Detección de emergencia obstétrica
+
+**Descripción**
+El sistema debe identificar si la consulta contiene indicadores de emergencia obstétrica.
+
+**Criterios de aceptación**
+
+```gherkin
+Feature: Identificación de emergencia
+
+Scenario: Consulta con indicadores de riesgo
+  DADO que la consulta contiene términos asociados a riesgo vital
+  CUANDO el sistema la analiza
+  ENTONCES la clasifica como emergencia
+```
+
+**Prioridad:** P0
+**Puntos :** 3
+
+---
+
+## RF-07 – Etiquetado del nivel de urgencia
+
+**Descripción**
+El sistema debe incluir una etiqueta visible indicando el nivel de urgencia de la respuesta.
+
+**Criterios de aceptación**
+
+```gherkin
+Feature: Etiquetado de urgencia
+
+Scenario: Respuesta generada
+  DADO que existe una clasificación de urgencia
+  CUANDO el sistema muestra la respuesta
+  ENTONCES incluye una etiqueta visible "URGENTE" o "RUTINA"
+```
+
+**Prioridad:** P0
+**Puntos :** 2
+
+---
+
+## RF-08 – Inclusión de recomendaciones inmediatas en emergencias
+
+**Descripción**
+Cuando la consulta sea clasificada como emergencia, la respuesta debe incluir acciones inmediatas.
+
+**Criterios de aceptación**
+
+```gherkin
+Feature: Respuesta prioritaria ante emergencia
+
+Scenario: Emergencia confirmada
+  DADO que la consulta fue clasificada como emergencia
+  CUANDO el sistema genera la respuesta
+  ENTONCES incluye recomendaciones de acción inmediata
+```
+
+**Prioridad:** P0
+**Puntos :** 3
+
+---
+
+## RF-09 – Visualización del historial de conversaciones
+
+**Descripción**
+El sistema debe registrar automáticamente cada par consulta-respuesta generado y permitir al profesional de salud consultarlo posteriormente en una pantalla de historial de solo lectura. El historial no es interactivo ni reutilizable.
+
+**Criterios de aceptación**
+
+```gherkin
+Feature: Registro y visualización del historial de conversaciones
+
+Scenario: Almacenamiento tras respuesta generada
+  DADO que el sistema ha generado una respuesta clínica
+  CUANDO la respuesta es presentada al usuario
+  ENTONCES el sistema almacena el par consulta-respuesta en el historial local
+  Y registra la marca temporal del momento de generación
+  Y registra el nivel de urgencia clasificado
+  Y no solicita ninguna acción al usuario para completar el registro
+
+Scenario: Visualización y acceso al historial existente
+  DADO que existen registros previos en el historial
+  CUANDO el usuario accede a la pantalla de historial
+  ENTONCES el sistema muestra las conversaciones en orden cronológico 
+  Y cada entrada muestra la consulta, la respuesta y el nivel de urgencia
+  Y ninguna entrada permite ser seleccionada para reenvío o edición
+
+Scenario: Independencia entre sesiones
+  DADO que existen registros previos en el historial
+  CUANDO el usuario envía una nueva consulta
+  ENTONCES el sistema procesa la consulta sin utilizar información de registros anteriores
+  Y la respuesta generada es independiente del contenido del historial
+```
+
+**Prioridad:** P0
+**Puntos:** 5
+
+---
+## RF-10 – Captura de consulta mediante voz
+
+**Descripción**
+La aplicación debe permitir capturar una consulta mediante grabación de audio utilizando el micrófono del dispositivo.
+
+**Criterios de aceptación**
+
+```gherkin
+Feature: Captura de audio
+
+Scenario: Inicio de grabación
+  DADO que el micrófono está habilitado
+  CUANDO la usuaria presiona el botón de grabación
+  ENTONCES el sistema inicia la captura de audio
+```
+
+**Prioridad:** P1
+**Puntos :** 3
+
+---
+
+## RF-11 – Transcripción local de audio
+
+**Descripción**
+El sistema debe transcribir el audio capturado a texto utilizando procesamiento local sin conexión a internet.
+
+**Criterios de aceptación**
+
+```gherkin
+Feature: Transcripción offline
+
+Scenario: Conversión de audio a texto
+  DADO que existe una grabación finalizada
+  CUANDO el sistema procesa el audio
+  ENTONCES genera una transcripción en texto
+  Y no realiza comunicaciones externas
+```
+
+**Prioridad:** P1
+**Puntos :** 5
+
+---
+
+## RF-12 – Solicitud de permiso de micrófono
+
+**Descripción**
+Antes de iniciar la captura de audio, el sistema debe verificar si el permiso
+de micrófono ha sido concedido y solicitarlo al usuario en caso de no estarlo.
+
+**Criterios de aceptación**
+```gherkin
+Feature: Gestión del permiso de micrófono
+
+Scenario: Permiso de micrófono no concedido
+  DADO que el permiso de micrófono no ha sido otorgado
+  CUANDO la usuaria presiona el botón de grabación
+  ENTONCES el sistema solicita el permiso de micrófono al usuario
+
+Scenario: Permiso de micrófono denegado
+  DADO que la usuaria deniega el permiso de micrófono
+  CUANDO el sistema recibe la respuesta
+  ENTONCES deshabilita la funcionalidad de captura por voz
+  Y mantiene disponible la entrada por texto
+```
+
+**Prioridad:** P1
+**Puntos:** 2
+
+---
+
+## RF-13 – Control de tiempo máximo de inferencia
 
 **Descripción**
 El sistema debe cancelar la generación de respuesta si el modelo excede el tiempo máximo definido.
@@ -222,110 +310,29 @@ Scenario: Modelo excede tiempo permitido
 
 ---
 
-## RF-11 – Detección de emergencia obstétrica
+## RF-14 – Formato directo de la respuesta clínica
 
 **Descripción**
-El sistema debe identificar si la consulta contiene indicadores de emergencia obstétrica.
+El sistema debe generar respuestas con formato clínico directo, iniciando
+inmediatamente con el contenido relevante para el profesional de salud.
 
 **Criterios de aceptación**
-
 ```gherkin
-Feature: Identificación de emergencia
+Feature: Formato directo de respuesta
 
-Scenario: Consulta con indicadores de riesgo
-  DADO que la consulta contiene términos asociados a riesgo vital
-  CUANDO el sistema la analiza
-  ENTONCES la clasifica como emergencia
-```
-
-**Prioridad:** P0
-**Puntos :** 3
-
----
-
-## RF-12 – Etiquetado del nivel de urgencia
-
-**Descripción**
-El sistema debe incluir una etiqueta visible indicando el nivel de urgencia de la respuesta.
-
-**Criterios de aceptación**
-
-```gherkin
-Feature: Etiquetado de urgencia
-
-Scenario: Respuesta generada
-  DADO que existe una clasificación de urgencia
-  CUANDO el sistema muestra la respuesta
-  ENTONCES incluye una etiqueta visible "URGENTE" o "RUTINA"
-```
-
-**Prioridad:** P0
-**Puntos :** 2
-
----
-
-## RF-13 – Inclusión de recomendaciones inmediatas en emergencias
-
-**Descripción**
-Cuando la consulta sea clasificada como emergencia, la respuesta debe incluir acciones inmediatas.
-
-**Criterios de aceptación**
-
-```gherkin
-Feature: Respuesta prioritaria ante emergencia
-
-Scenario: Emergencia confirmada
-  DADO que la consulta fue clasificada como emergencia
-  CUANDO el sistema genera la respuesta
-  ENTONCES incluye recomendaciones de acción inmediata
-```
-
-**Prioridad:** P0
-**Puntos :** 3
-
----
-
-## RF-14 – Presentación en lenguaje clínico claro
-
-**Descripción**
-Las respuestas deben presentarse en lenguaje clínico claro y conciso.
-
-**Criterios de aceptación**
-
-```gherkin
-Feature: Lenguaje clínico claro
-
-Scenario: Respuesta clínica generada
-  DADO que el sistema genera una respuesta
-  ENTONCES la información se presenta en lenguaje claro y preciso
-```
-
-**Prioridad:** P0
-**Puntos :** 3
-
----
-
-## RF-15 – Respuesta sin expresiones conversacionales
-
-**Descripción**
-La respuesta no debe incluir saludos ni expresiones conversacionales.
-
-**Criterios de aceptación**
-
-```gherkin
-Feature: Respuesta directa
-
-Scenario: Generación de respuesta
-  DADO que el sistema genera una respuesta
-  ENTONCES no incluye saludos ni expresiones coloquiales
+Scenario: Generación de respuesta clínica
+  DADO que el sistema ha procesado una consulta obstétrica
+  CUANDO genera la respuesta
+  ENTONCES la respuesta inicia directamente con contenido clínico relevante
+  Y no incluye saludos ni expresiones conversacionales
 ```
 
 **Prioridad:** P1
-**Puntos :** 2
+**Puntos:** 2
 
 ---
 
-## RF-16 – Respuesta en un único turno
+## RF-15 – Respuesta en un único turno
 
 **Descripción**
 Cada consulta debe generar una única respuesta completa sin solicitar información adicional.
@@ -347,7 +354,7 @@ Scenario: Respuesta generada
 
 ---
 
-## RF-17 – Inclusión obligatoria de advertencia clínica
+## RF-16 – Inclusión obligatoria de advertencia clínica
 
 **Descripción**
 Toda respuesta debe incluir una advertencia indicando que no sustituye el criterio médico profesional.
@@ -367,28 +374,29 @@ Scenario: Mostrar advertencia
 
 ---
 
-## RF-18 – Procesamiento independiente por consulta
+## RF-17 – Procesamiento stateless de consultas
 
 **Descripción**
-Cada consulta debe procesarse sin utilizar información de consultas anteriores.
+El sistema debe procesar cada consulta de forma independiente, utilizando
+únicamente el contenido de la consulta activa para generar la respuesta.
 
 **Criterios de aceptación**
-
 ```gherkin
-Feature: Procesamiento independiente
+Feature: Procesamiento stateless de consultas
 
-Scenario: Nueva consulta
-  DADO que existen consultas previas
-  CUANDO la usuaria envía una nueva consulta
-  ENTONCES el sistema no utiliza información anterior en la generación de respuesta
+Scenario: Envío de una nueva consulta
+  DADO que la usuaria envía una consulta
+  CUANDO el sistema la procesa
+  ENTONCES genera la respuesta basándose exclusivamente en el contenido
+  de la consulta actual
 ```
 
 **Prioridad:** P1
-**Puntos :** 2
+**Puntos:** 2
 
 ---
 
-## RF-19 – Indicador visual de procesamiento
+## RF-18 – Indicador visual de procesamiento
 
 **Descripción**
 El sistema debe mostrar un indicador visual mientras procesa la consulta.
@@ -409,70 +417,7 @@ Scenario: Consulta en procesamiento
 **Puntos :** 1
 
 ---
-
-## RF-20 – Acceso directo a la pantalla de consulta
-
-**Descripción**
-Al iniciar la aplicación, debe mostrarse directamente la pantalla de consulta.
-
-**Criterios de aceptación**
-
-```gherkin
-Feature: Acceso directo
-
-Scenario: Inicio de aplicación
-  DADO que la usuaria abre la aplicación
-  ENTONCES se muestra inmediatamente la pantalla de consulta
-  Y no se presentan pantallas intermedias
-```
-
-**Prioridad:** P2
-**Puntos :** 1
-
----
-
-## RF-21 – Visualización del historial de conversaciones
-
-**Descripción**
-El sistema debe registrar automáticamente cada par consulta-respuesta generado y permitir al profesional de salud consultarlo posteriormente en una pantalla de historial de solo lectura. El historial no es interactivo ni reutilizable.
-
-**Criterios de aceptación**
-
-```gherkin
-Feature: Registro automático de conversaciones
-
-Scenario: Almacenamiento tras respuesta generada
-  DADO que el sistema ha generado una respuesta clínica
-  CUANDO la respuesta es presentada al usuario
-  ENTONCES el sistema almacena el par consulta-respuesta en el historial local
-  Y registra la marca temporal del momento de generación
-  Y registra el nivel de urgencia clasificado
-  Y no solicita ninguna acción al usuario para completar el registro
-
-Feature: Visualización del historial
-
-Scenario: Acceso al historial existente
-  DADO que existen registros previos en el historial
-  CUANDO el usuario accede a la pantalla de historial
-  ENTONCES el sistema muestra las conversaciones en orden cronológico 
-  Y cada entrada muestra la consulta, la respuesta y el nivel de urgencia
-  Y ninguna entrada permite ser seleccionada para reenvío o edición
-
-Feature: Independencia entre sesiones
-
-Scenario: El historial no afecta el procesamiento de nuevas consultas
-  DADO que existen registros previos en el historial
-  CUANDO el usuario envía una nueva consulta
-  ENTONCES el sistema procesa la consulta sin utilizar información de registros anteriores
-  Y la respuesta generada es independiente del contenido del historial
-```
-
-**Prioridad:** P0
-**Puntos:** 5
-
----
-
-## RF-22 – Retención automática del historial
+## RF-19 – Retención automática del historial
 
 **Descripción**
 El sistema debe eliminar automáticamente los registros del historial con una antigüedad superior a 180 días (6 meses) mediante una tarea programada en background, sin intervención del usuario. 
@@ -491,3 +436,30 @@ Scenario: Purga periódica de registros vencidos
 
 **Prioridad:** P1
 **Puntos:** 3
+
+---
+
+## RF-20 – Construcción de Home
+
+**Descripción**
+La aplicación debe presentar la pantalla principal de consulta como punto
+de entrada directo al abrirse, sin requerir navegación adicional por parte
+del usuario.
+
+**Criterios de aceptación**
+```gherkin
+Feature: Pantalla de inicio como punto de entrada
+
+Scenario: Apertura de la aplicación
+  DADO que la usuaria abre la aplicación
+  CUANDO el sistema completa su inicialización
+  ENTONCES la pantalla de consulta es la primera pantalla visible
+  Y el campo de ingreso de consulta está disponible para su uso
+```
+
+**Prioridad:** P2
+**Puntos:** 1
+---
+
+
+
