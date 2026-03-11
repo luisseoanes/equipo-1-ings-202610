@@ -1,6 +1,6 @@
-# An·lisis
+# An√°lisis
 
-## NavegaciÛn
+## Navegaci√≥n
 
 - [Requisitos funcionales](requirements-fn.md)
 - [Requisitos no funcionales](requirements-nfn.md)

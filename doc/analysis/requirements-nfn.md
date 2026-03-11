@@ -79,21 +79,23 @@ P0
 ## Protección de la información clínica del usuario
 
 ### Descripción  
-El sistema debe garantizar la protección de la información ingresada por el usuario, almacenándola únicamente de forma local y evitando cualquier transmisión externa, además de informar claramente que el sistema no sustituye el criterio médico profesional.
+El sistema debe garantizar la protección de la información ingresada por el usuario. La información se almacena **únicamente de forma local** para permitir funcionalidades como el historial, evitando estrictamente cualquier transmisión a servidores externos o nubes de datos, y comunicando claramente que el sistema no sustituye el criterio médico profesional.
 
 ### 🔎 Criterios de aceptación
-- La información ingresada se almacena únicamente de forma local.  
-- El sistema no transmite datos a servidores externos.  
-- El sistema muestra advertencias sobre el uso clínico.  
-- El acceso a los datos está protegido por los mecanismos de seguridad del sistema operativo Android.  
+- La información ingresada y el historial se almacenan exclusivamente en el almacenamiento privado de la aplicación en el dispositivo.  
+- El sistema no permite ni realiza transferencias de datos a servicios externos (APIs, telemetría, etc.).  
+- El sistema muestra advertencias visibles sobre el alcance clínico de las respuestas.  
+- El acceso a la base de datos local y a las preferencias del sistema está cifrado y protegido por los mecanismos del kernel de Android.  
 
 ### 📌 Prioridad  
 P0  
 
 ### 📖 Notas de implementación  
-- Uso de almacenamiento seguro local.  
-- No uso de APIs externas.  
-- Uso de mecanismos de seguridad de Android.  
+- **Android Keystore System**: Uso del sistema de claves de Android para gestionar las claves criptográficas de forma segura en hardware (TEE/StrongBox).
+- **EncryptedSharedPreferences / SQLCipher**: Cifrado de la base de datos local (Room) y de los pares de clave-valor mediante AES-256.
+- **App Sandboxing**: Aislamiento de procesos basado en el kernel de Linux para evitar que otras aplicaciones accedan a los datos de ObsIA.
+- **BiometricPrompt**: Implementación opcional de autenticación biométrica para acceder a la pantalla de historial o configuraciones sensibles.
+- **Scoped Storage**: Cumplimiento con las políticas de almacenamiento de Android para limitar el acceso al sistema de archivos solo a directorios específicos de la app.
 
 > **Puntos:**  
 5  

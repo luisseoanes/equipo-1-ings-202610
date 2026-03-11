@@ -218,7 +218,30 @@ Scenario: Independencia entre sesiones
 **Puntos:** 5
 
 ---
-## RF-10 – Captura de consulta mediante voz
+
+## RF-10 – Construcción de pantalla Home (Aterrizaje)
+
+**Descripción**
+La aplicación debe contar con una pantalla principal (Home) que actúe como el punto de aterrizaje inmediato al abrir la aplicación, permitiendo al usuario iniciar una consulta de forma directa.
+
+**Criterios de aceptación**
+
+```gherkin
+Feature: Pantalla de inicio de la aplicación
+
+  Scenario: Aterrizaje al abrir la app
+    DADO que la usuaria abre la aplicación
+    ENTONCES el sistema muestra inmediatamente la pantalla de Home
+    Y no se presentan pantallas de carga o intermedias innecesarias
+    Y la pantalla ofrece las opciones para iniciar una consulta nueva
+```
+
+**Prioridad:** P0
+**Puntos:** 2
+
+---
+
+## RF-11 – Captura de consulta mediante voz
 
 **Descripción**
 La aplicación debe permitir capturar una consulta mediante grabación de audio utilizando el micrófono del dispositivo.
@@ -239,7 +262,7 @@ Scenario: Inicio de grabación
 
 ---
 
-## RF-11 – Transcripción local de audio
+## RF-12 – Transcripción local de audio
 
 **Descripción**
 El sistema debe transcribir el audio capturado a texto utilizando procesamiento local sin conexión a internet.
@@ -261,7 +284,7 @@ Scenario: Conversión de audio a texto
 
 ---
 
-## RF-12 – Solicitud de permiso de micrófono
+## RF-13 – Solicitud de permiso de micrófono
 
 **Descripción**
 Antes de iniciar la captura de audio, el sistema debe verificar si el permiso
@@ -288,7 +311,7 @@ Scenario: Permiso de micrófono denegado
 
 ---
 
-## RF-13 – Control de tiempo máximo de inferencia
+## RF-14 – Control de tiempo máximo de inferencia
 
 **Descripción**
 El sistema debe cancelar la generación de respuesta si el modelo excede el tiempo máximo definido.
@@ -310,7 +333,7 @@ Scenario: Modelo excede tiempo permitido
 
 ---
 
-## RF-14 – Formato directo de la respuesta clínica
+## RF-15 – Formato directo de la respuesta clínica
 
 **Descripción**
 El sistema debe generar respuestas con formato clínico directo, iniciando
@@ -332,7 +355,7 @@ Scenario: Generación de respuesta clínica
 
 ---
 
-## RF-15 – Respuesta en un único turno
+## RF-16 – Respuesta en un único turno
 
 **Descripción**
 Cada consulta debe generar una única respuesta completa sin solicitar información adicional.
@@ -354,7 +377,7 @@ Scenario: Respuesta generada
 
 ---
 
-## RF-16 – Inclusión obligatoria de advertencia clínica
+## RF-17 – Inclusión obligatoria de advertencia clínica
 
 **Descripción**
 Toda respuesta debe incluir una advertencia indicando que no sustituye el criterio médico profesional.
@@ -374,7 +397,7 @@ Scenario: Mostrar advertencia
 
 ---
 
-## RF-17 – Procesamiento stateless de consultas
+## RF-18 – Procesamiento stateless de consultas
 
 **Descripción**
 El sistema debe procesar cada consulta de forma independiente, utilizando
@@ -396,7 +419,7 @@ Scenario: Envío de una nueva consulta
 
 ---
 
-## RF-18 – Indicador visual de procesamiento
+## RF-19 – Indicador visual de procesamiento
 
 **Descripción**
 El sistema debe mostrar un indicador visual mientras procesa la consulta.
@@ -417,12 +440,14 @@ Scenario: Consulta en procesamiento
 **Puntos :** 1
 
 ---
-## RF-19 – Retención automática del historial
+
+## RF-20 – Retención automática del historial
 
 **Descripción**
-El sistema debe eliminar automáticamente los registros del historial con una antigüedad superior a 180 días (6 meses) mediante una tarea programada en background, sin intervención del usuario. 
+El sistema debe eliminar automáticamente los registros del historial con una antigüedad superior a 180 días (6 meses) mediante una tarea programada en background, sin intervención del usuario.
 
 **Criterios de aceptación**
+
 ```gherkin
 Feature: Eliminación automática por política de retención
 
@@ -436,30 +461,4 @@ Scenario: Purga periódica de registros vencidos
 
 **Prioridad:** P1
 **Puntos:** 3
-
----
-
-## RF-20 – Construcción de Home
-
-**Descripción**
-La aplicación debe presentar la pantalla principal de consulta como punto
-de entrada directo al abrirse, sin requerir navegación adicional por parte
-del usuario.
-
-**Criterios de aceptación**
-```gherkin
-Feature: Pantalla de inicio como punto de entrada
-
-Scenario: Apertura de la aplicación
-  DADO que la usuaria abre la aplicación
-  CUANDO el sistema completa su inicialización
-  ENTONCES la pantalla de consulta es la primera pantalla visible
-  Y el campo de ingreso de consulta está disponible para su uso
-```
-
-**Prioridad:** P2
-**Puntos:** 1
----
-
-
 
