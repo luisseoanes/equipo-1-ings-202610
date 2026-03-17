@@ -17,6 +17,4 @@ Equipos clínicos de obstetricia y salud materna que requieren asistencia en ter
 | Sección | Enlace |
 | ------- | ------ |
 | Análisis | [analysis/index.md](analysis/index.md) |
-| Requisitos Funcionales | [analysis/requirements-fn.md](analysis/requirements-fn.md) |
-| Requisitos No Funcionales | [analysis/requirements-nfn.md](analysis/requirements-nfn.md) |
-TODO: agregar el archivo de diseño
+| Diseño | [design/index.md](design/index.md) |
