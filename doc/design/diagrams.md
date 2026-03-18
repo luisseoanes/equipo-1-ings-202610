@@ -45,4 +45,10 @@ Modelo de datos del MVP. Define las entidades persistidas localmente en el dispo
 
 ## 5. Diagrama de Componentes
 
-> **Pendiente** — Este diagrama será agregado por otro integrante del equipo.
+## 5. Diagrama de Componentes
+
+Funciona como el "mapa de bloques" del sistema. No nos dice cómo funciona el código por dentro, sino cómo se organiza la aplicación en piezas modulares y cómo se comunican entre sí mediante interfaces.
+
+![Diagrama de Componentes — Arquitectura](diagrams_images/image-4.png)
+
+---
