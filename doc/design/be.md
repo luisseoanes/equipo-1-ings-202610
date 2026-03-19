@@ -90,4 +90,3 @@ no negociables del proyecto:
 Ninguna de las tres opciones evaluadas de forma aislada satisface el conjunto 
 completo de restricciones. La combinación Kotlin + C++ es la única alternativa 
 que lo hace.
-```
