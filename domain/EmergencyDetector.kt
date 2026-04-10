@@ -16,7 +16,7 @@ data class EmergencyConfig(
 )
 
 /**
- * Represents a category of emergency (e.g., hemorrhage, convulsion).
+ * Represents a category of emergency (e.g., hemorrhage, convulsion)
  */
 @Serializable
 data class EmergencyCategory(
