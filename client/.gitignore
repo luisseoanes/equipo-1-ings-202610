@@ -1,0 +1,14 @@
+# Model files
+app/src/main/assets/*.gguf
+
+# Vosk model
+app/src/main/assets/vosk-model-small-es-0.42/
+
+# Build files
+app/build/
+build/
+
+# IDE files
+.idea/
+*.iml
+local.properties
