@@ -12,3 +12,10 @@
 
 ### Burndown semanal
 <img width="916" height="570" alt="image" src="https://github.com/user-attachments/assets/53b662b2-aec2-4569-8231-912bd3c84fba" />
+
+### Fecha de entrega: 24 de abril
+
+### Kanban
+<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/b615bcab-84aa-4d7d-a748-82d361d63d68" />
+### Burndown semanal
+<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/14e0cfff-48e5-44e5-8f86-d300ad7fbf51" />
