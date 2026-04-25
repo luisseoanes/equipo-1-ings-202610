@@ -18,4 +18,4 @@
 ### Kanban
 <img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/b615bcab-84aa-4d7d-a748-82d361d63d68" />
 ### Burndown semanal
-<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/14e0cfff-48e5-44e5-8f86-d300ad7fbf51" />
+<img width="941" height="587" alt="image" src="https://github.com/user-attachments/assets/edd22bf1-ef0d-4371-9414-c312b45138ff" />
