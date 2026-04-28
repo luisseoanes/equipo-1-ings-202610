@@ -16,7 +16,7 @@ Descripción general del sistema desde una perspectiva contextual. Muestra cómo
 
 Representa los actores del sistema (Médico / Usuario) y los casos de uso principales del MVP, agrupados en tres categorías: Acceso y Seguridad, Inteligencia Artificial (IA) y Optimización y Hardware.
 
-![Diagrama de Casos de Uso](doc/design/diagrams_images/image-1.jpeg)
+![Diagrama de Casos de Uso](diagrams_images/image-1.jpeg)
 
 ---
 
