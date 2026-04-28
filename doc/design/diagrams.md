@@ -16,7 +16,7 @@ Descripción general del sistema desde una perspectiva contextual. Muestra cómo
 
 Representa los actores del sistema (Médico / Usuario) y los casos de uso principales del MVP, agrupados en tres categorías: Acceso y Seguridad, Inteligencia Artificial (IA) y Optimización y Hardware.
 
-![Diagrama de Casos de Uso](diagrams_images/image-1.png)
+![Diagrama de Casos de Uso](doc/design/diagrams_images/image-1.jpeg)
 
 ---
 
@@ -27,7 +27,8 @@ Flujos de los dos casos de uso principales siguiendo únicamente el happy path:
 - **Caso 1 — Búsqueda RAG:** El clínico envía una consulta que es procesada por el motor Obsia, el cual busca evidencia relevante en la base de datos de guías médicas locales y retorna la información contextualizada.
 - **Caso 2 — Consulta Clínica con Streaming:** A partir del contexto RAG obtenido, se inicia la inferencia sobre la red neuronal local (modelo GGUF/FAISS). Los tokens generados son emitidos en tiempo real mediante callbacks JNI hasta la UI.
 
-![Diagramas de Secuencia — RAG + Streaming](diagrams_images/image-2.png)
+![Diagramas de Secuencia — RAG + Streaming](doc/design/diagrams_images/Secuencia-1.jpeg)
+![Diagramas de Secuencia — RAG + Streaming](doc/design/diagrams_images/Secuencia-2.jpeg)
 
 ---
 
