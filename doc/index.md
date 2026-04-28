@@ -1,6 +1,6 @@
 # Documentación
 
-## Titulo protecto: ObsIA
+## Título proyecto: ObsIA
 
 **ObsIA** es un MVP de inteligencia artificial conversacional diseñado para operar totalmente **offline** en dispositivos móviles. Su objetivo principal es brindar apoyo a equipos clínicos en obstetricia y salud materna, especialmente en contextos de atención inmediata donde la conectividad es limitada.
 
