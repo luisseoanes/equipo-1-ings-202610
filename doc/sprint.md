@@ -36,6 +36,7 @@
 
 ### Burndown semanal
 
+<img width="1308" height="816" alt="burn_down" src="https://github.com/user-attachments/assets/d095d477-8122-44e8-9d41-d2abc71aa9ea" />
 
 
 
