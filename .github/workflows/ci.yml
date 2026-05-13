@@ -2,9 +2,9 @@ name: CI & Release
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, staging, development ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, staging, development ]
 
 permissions:
   contents: write
@@ -51,10 +51,44 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app-apk
-          path: app/build/outputs/apk/debug/*.apk  # ← APK, no JAR
+          path: app/build/outputs/apk/debug/*.apk
 
   # ==========================================
-  # JOB 2: Release automático (solo en push a main)
+  # JOB 2: Pre-release APK (push a staging)
+  # ==========================================
+  staging-release:
+    name: Staging Pre-Release
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/staging' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download APK
+        uses: actions/download-artifact@v4
+        with:
+          name: app-apk
+          path: app/build/outputs/apk/debug/
+
+      - name: Create Staging Pre-Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: staging-${{ github.sha }}
+          name: "Staging Build — ${{ github.sha }}"
+          draft: false
+          prerelease: true
+          files: app/build/outputs/apk/debug/*.apk
+          body: "Automated staging build from commit ${{ github.sha }}."
+          fail_on_unmatched_files: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # ==========================================
+  # JOB 3: Release automático (solo en push a main)
   # ==========================================
   release:
     name: Auto Release
@@ -71,7 +105,7 @@ jobs:
       - name: Download APK
         uses: actions/download-artifact@v4
         with:
-          name: app-apk          # ← mismo nombre que en upload
+          name: app-apk
           path: app/build/outputs/apk/debug/
 
       - name: Calculate next version
@@ -126,7 +160,7 @@ jobs:
           name: Release ${{ steps.version.outputs.version }}
           draft: false
           prerelease: false
-          files: app/build/outputs/apk/debug/*.apk   # ← APK
+          files: app/build/outputs/apk/debug/*.apk
           body_path: changelog_body.md
           fail_on_unmatched_files: true
         env:

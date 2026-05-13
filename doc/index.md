@@ -16,6 +16,7 @@ Equipos clínicos de obstetricia y salud materna que requieren asistencia en ter
 | ------- | ------ |
 | Análisis | [analysis/index.md](analysis/index.md) |
 | Diseño | [design/index.md](design/index.md) |
+| Seguimiento de Sprints | [sprint.md](sprint.md) |
 
 ## Tablero Trello
 [URL tablero trello](https://trello.com/invite/b/69d9f11c0c7ebc39412f0d3c/ATTI420143d755ea5951e9da83d22709c075628BABD4/obsia)

@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.serialization)
     // Hilt eliminado — no hay plugin de Gradle en Koin
 }
 
@@ -42,6 +43,10 @@ android {
         jvmTarget = "11"
     }
 
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+    }
+
     // NOTA: El proyecto usa librerías nativas precompiladas en jniLibs/.
     // Para actualizar la librería nativa, recompilar desde modeloFinal/ con el NDK
     // y copiar el .so resultante a app/src/main/jniLibs/arm64-v8a/
@@ -60,6 +65,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.vosk.android)
+    implementation(libs.kotlinx.serialization.json)
 
     // Room
     implementation(libs.androidx.room.runtime)

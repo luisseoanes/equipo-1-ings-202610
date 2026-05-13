@@ -61,6 +61,29 @@ Para cumplir con las restricciones severas de hardware en móviles, el proyecto 
 
 ---
 
+## Testing
+
+ObsIA define 5 puntos críticos de smoke test que cubren los flujos de seguridad clínica principales.
+
+| # | Punto Crítico | Flujo cubierto | Tipo | Ejecución |
+|---|---|---|---|---|
+| 1 | **Detección de emergencias por keywords** | `EmergencyDetector.analizar()` clasifica correctamente reportes activos de emergencia vs. consultas educativas | Unit | `./gradlew test` |
+| 2 | **Resolución de reglas clínicas** | `EmergencyClinicalRules.lookup()` retorna un plan estructurado con `immediate_steps` y `disclaimer` para emergencias, y `null` para consultas educativas | Unit | `./gradlew test` |
+| 3 | **Orquestación completa de consulta (stub mode)** | `QueryOrchestrator.processStreaming()` enruta correctamente — ruta de reglas de emergencia dispara antes del LLM | Integration | `./gradlew test` con `LlmEngineStub` en `AppModule` |
+| 4 | **Render de UI y flujo de mensajes** | Los mensajes aparecen en el chat tras enviar; tokens de streaming se concatenan; indicador de carga aparece/desaparece | e2e (Compose) | `./gradlew connectedAndroidTest` (requiere dispositivo) |
+| 5 | **Inicialización offline del modelo** | La app arranca sin red, `NativeEngine.init()` carga el `.gguf` desde assets y retorna contexto no-nulo en tiempo límite | Integration (on-device) | `./gradlew connectedAndroidTest` (requiere dispositivo con asset del modelo) |
+
+### Ejecutar tests unitarios (puntos 1 y 2 — implementados)
+
+```bash
+./gradlew test
+# Reporte: app/build/reports/tests/testDebugUnitTest/index.html
+```
+
+Los puntos 3–5 requieren dispositivo físico ARM64 con el asset del modelo y se validan manualmente durante el demo.
+
+---
+
 ## 📂 Tabla de Navegación
 | 🚀 Sección                                                          | 📄 Descripción                                                                                                 |
 | ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
