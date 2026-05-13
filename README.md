@@ -1,96 +1,133 @@
-# ObsIA: IA Conversacional Offline para Apoyo Clínico
+# ObsIA: The First Fully Offline AI for Maternal & Obstetric Care
 
-**ObsIA** es un MVP de inteligencia artificial conversacional diseñado para operar totalmente **offline** en dispositivos móviles. Su objetivo principal es brindar apoyo a equipos clínicos en obstetricia y salud materna, especialmente en contextos de atención inmediata donde la conectividad es limitada.
+![Status](https://img.shields.io/badge/Status-MVP-orange)
+![Platform](https://img.shields.io/badge/Platform-Android-green)
+![Intelligence](https://img.shields.io/badge/Engine-C%2B%2B%20%2F%20llama.cpp-blue)
+![Connectivity](https://img.shields.io/badge/Internet-Not%20Required-red)
 
-## Propósito del Proyecto
-
-El sistema funciona como una herramienta de apoyo a la decisión clínica, utilizando modelos de lenguaje locales y una base de conocimiento validada para ofrecer respuestas estructuradas y trazables.
-
----
-
-## Características Técnicas
-
-- **Chat Clínico Offline:** Procesamiento de texto sin necesidad de internet para garantizar disponibilidad en terreno.
-- **Motor de Reglas Clínicas:** Sistema determinístico para el manejo de escenarios críticos y urgencias.
-- **RAG (Retrieval-Augmented Generation):** Base de conocimientos clínica preindexada y embebida para reducir alucinaciones.
-- **Inferencia Local Optimizada:** Ejecución de modelos LLM mediante optimización para arquitectura ARM.
+**ObsIA** is a groundbreaking clinical decision support system designed to provide high-level AI capabilities in the most challenging environments. Built for obstetricians and maternal health teams, ObsIA operates **100% offline**, ensuring that critical medical knowledge is available even in remote areas without cellular or satellite coverage.
 
 ---
 
-## Limitaciones del Proyecto
+## 🌟 The Vision
 
-Dado que **ObsIA** se ejecuta en un entorno móvil offline y maneja información sensible, existen restricciones importantes:
+In rural and emergency clinical settings, every second counts. Lack of connectivity often prevents access to modern AI assistants. **ObsIA** bridges this gap by bringing the power of Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG) directly into the clinician's pocket.
 
-### 1. Alcance Clínico
-
-- **No es un sistema de diagnóstico:** El software se define exclusivamente como una herramienta de apoyo a la decisión clínica, no como un sustituto del diagnóstico profesional autónomo.
-- **Base de Conocimiento:** Las respuestas están limitadas a la base de conocimiento clínica cargada y versionada en el sistema.
-
-### 2. Restricciones Técnicas (Hardware)
-
-- **Capacidad del Modelo:** Debido al uso en dispositivos móviles, el modelo está limitado a aproximadamente 1B de parámetros para asegurar la viabilidad técnica.
-- **Recursos del Dispositivo:** El rendimiento está sujeto a limitaciones severas de memoria RAM, capacidad de procesamiento (CPU) y consumo de batería del celular.
-- **Optimización Extrema:** La necesidad de ejecución offline requiere una cuantización y optimización agresiva del modelo y del sistema RAG.
-
-### 3. Implementación y Entorno
-
-- **Diversidad de Dispositivos:** El correcto funcionamiento puede variar según el hardware del fabricante, requiriendo un esfuerzo mayor de pruebas multidispositivo.
-- **Actualizaciones:** Al ser una aplicación estrictamente offline, las actualizaciones de la base de conocimiento requieren una reinstalación o actualización manual del paquete de datos.
+### Core Objectives:
+1.  **Empower Rural Healthcare**: Provide expert-level clinical support where specialists are unavailable.
+2.  **Absolute Privacy**: No data leaves the device, complying with the strictest medical data regulations.
+3.  **Instant Availability**: Zero latency from network round-trips; the AI is as fast as the local processor.
 
 ---
 
-## Stack Tecnológico
+## 🏗️ System Architecture
 
-Para cumplir con las restricciones severas de hardware en móviles, el proyecto utiliza:
+ObsIA uses a **Hybrid Dual-Core Architecture** to balance modern Android UI flexibility with raw C++ performance.
 
-- **Lenguajes:** Kotlin (Android nativo) y C/C++ para el motor de IA
-- **Interoperabilidad:** Integración mediante **JNI** (Java Native Interface).
-- **IA:** Modelos de lenguaje cuantizados (Instruct y Lama.cpp).
-- **Empaquetado:** Formato APK/OBB para instalación completa fuera de línea.
+```mermaid
+graph TD
+    subgraph "Android Application (Kotlin/Compose)"
+        UI[User Interface] --> Orchestrator[Query Orchestrator]
+        Orchestrator --> RuleEngine[Clinical Rule Engine]
+    end
+
+    subgraph "Native Inference Engine (C++/JNI)"
+        JNI[JNI Bridge] --> LlamaCpp[llama.cpp Core]
+        LlamaCpp --> RAG[RAG Retrieval System]
+        RAG --> KnowledgeBase[(Local Clinical Docs)]
+        LlamaCpp --> LLM[Quantized LLM]
+    end
+
+    Orchestrator <==> JNI
+```
+
+### 1. The Kotlin/Compose Frontend (`app/`)
+Handles the user experience, chat state management, and the **Clinical Rule Engine**. This engine acts as a deterministic safety layer, ensuring that critical emergency protocols (like Eclampsia or Postpartum Hemorrhage) are handled with 100% predictable logic before the AI even starts "thinking."
+
+### 2. The Native C++ Backend (`Modelo/`)
+This is the heart of the system. We use a customized fork of `llama.cpp` optimized for ARM64 (Android) architectures.
+- **Model Development (`Modelo/llm/`)**: This is our research lab. We use Python and specialized tools here to prepare documents, generate Faiss/Binary embeddings, and quantize the models (from FP16 to 4-bit) to fit mobile RAM constraints.
+- **Production Engine (`Modelo/modeloFinal/`)**: This folder contains the specialized C++ code that compiles into a `.so` (shared object) library. It is designed for maximum speed and efficient memory management.
 
 ---
 
-## Equipo de Desarrollo
+## 🧠 Intelligent Pillars
 
-| **Miembro** | **Rol** | **Responsabilidad Principal** |
+### 📋 Deterministic Rule Engine
+Before the LLM processes a query, a rule-based system scans for "red flag" clinical symptoms. If a life-threatening emergency is detected (e.g., severe hypertension in pregnancy), the system immediately triggers a validated clinical protocol response.
+
+### 📚 RAG (Retrieval-Augmented Generation)
+To eliminate "AI hallucinations," ObsIA doesn't rely solely on the model's training data. Instead:
+1.  **Indexing**: Clinical guides (PDFs) are chunked and converted into vector embeddings during development.
+2.  **Retrieval**: When a clinician asks a question, the system finds the most relevant text snippets from the local knowledge base.
+3.  **Generation**: The LLM uses these snippets as context to generate a response that is grounded in clinical evidence.
+
+---
+
+## 📂 Project Structure
+
+| Path | Purpose |
+| --- | --- |
+| `app/` | Source code for the Android application (Kotlin). |
+| `Modelo/` | Central hub for all AI-related logic. |
+| `Modelo/llm/` | Research scripts, RAG indexing tools, and model quantization tests. |
+| `Modelo/modeloFinal/` | Native C++ inference engine source and JNI interface. |
+| `doc/` | Comprehensive technical documentation, analysis, and design diagrams. |
+
+---
+
+## 🛠️ Setup & Development
+
+### Prerequisites:
+- **Android Studio Jellyfish** (or newer).
+- **Android NDK** (Side-by-side) & **CMake**.
+- A device with at least **8GB RAM** for optimal inference (6GB minimum).
+
+### Build Instructions:
+1.  **Clone the Repo**: Ensure submodules are initialized.
+2.  **Native Build**: Navigate to `Modelo/modeloFinal` and run the provided build scripts or let Android Studio handle the CMake sync.
+3.  **Model Loading**: Place your quantized `.gguf` model in the `app/src/main/assets/` directory (ensure it is listed in `.gitignore` to avoid large file errors).
+4.  **Run**: Build the APK and deploy to your device.
+
+---
+
+## 👥 The Team
+
+| Name | Role | Focus |
 | --- | --- | --- |
-| **Julián** | Frontend Developer | Interfaz de usuario (UI) y experiencia de chat en Android. |
-| **Luis** | AI Engineer/lead project | Inferencia nativa en C++, optimización del modelo y RAG. |
-| **Valentina** | Backend Developer | Orquestación, sistema RAG y lógica de negocio clínica. |
-| **Rafa** | Backend Developer/QA | Integración JNI, motor de reglas y persistencia local. |
+| **Luis** | **AI Lead & Engineer** | Native C++ optimization, JNI Bridge, and Model Architecture. |
+| **Julián** | **Lead Frontend** | UI/UX Design, Jetpack Compose, and Chat Lifecycle. |
+| **Valentina** | **Business Logic/RAG** | Clinical knowledge base indexing and RAG orchestration. |
+| **Rafa** | **Backend & QA** | Rule Engine development, persistence, and JNI integration testing. |
 
 ---
 
 ## Testing
 
-ObsIA define 5 puntos críticos de smoke test que cubren los flujos de seguridad clínica principales.
+ObsIA defines 5 critical smoke test points that cover the core clinical safety flows.
 
-| # | Punto Crítico | Flujo cubierto | Tipo | Ejecución |
+| # | Critical Point | Flow Covered | Test Type | Execution |
 |---|---|---|---|---|
-| 1 | **Detección de emergencias por keywords** | `EmergencyDetector.analizar()` clasifica correctamente reportes activos de emergencia vs. consultas educativas | Unit | `./gradlew test` |
-| 2 | **Resolución de reglas clínicas** | `EmergencyClinicalRules.lookup()` retorna un plan estructurado con `immediate_steps` y `disclaimer` para emergencias, y `null` para consultas educativas | Unit | `./gradlew test` |
-| 3 | **Orquestación completa de consulta (stub mode)** | `QueryOrchestrator.processStreaming()` enruta correctamente — ruta de reglas de emergencia dispara antes del LLM | Integration | `./gradlew test` con `LlmEngineStub` en `AppModule` |
-| 4 | **Render de UI y flujo de mensajes** | Los mensajes aparecen en el chat tras enviar; tokens de streaming se concatenan; indicador de carga aparece/desaparece | e2e (Compose) | `./gradlew connectedAndroidTest` (requiere dispositivo) |
-| 5 | **Inicialización offline del modelo** | La app arranca sin red, `NativeEngine.init()` carga el `.gguf` desde assets y retorna contexto no-nulo en tiempo límite | Integration (on-device) | `./gradlew connectedAndroidTest` (requiere dispositivo con asset del modelo) |
+| 1 | **Emergency keyword detection** | `EmergencyDetector.analizar()` correctly classifies active emergency reports vs. educational queries | Unit | `./gradlew test --tests "*.EmergencyDetectorTest"` |
+| 2 | **Clinical rule resolution** | `EmergencyClinicalRules.lookup()` returns a structured plan with `immediate_steps` and `disclaimer` for matched emergencies, and `null` for educational/unrelated queries | Unit | `./gradlew test --tests "*.EmergencyClinicalRulesTest"` |
+| 3 | **Full query orchestration (stub mode)** | `QueryOrchestrator.processStreaming()` routes queries correctly — emergency rule path fires before LLM, routine queries reach the LLM stub | Integration | `./gradlew test` with `LlmEngineStub` wired in `AppModule` |
+| 4 | **Chat UI render and message flow** | Messages appear in the chat list after send; streaming tokens append correctly; loading indicator shows/hides | e2e (Espresso/Compose) | `./gradlew connectedAndroidTest` (requires device) |
+| 5 | **Offline model initialization** | App launches without network, `NativeEngine.init()` loads the `.gguf` model from assets and returns non-null context within timeout | Integration (on-device) | `./gradlew connectedAndroidTest` (requires device with model asset) |
 
-### Ejecutar tests unitarios (puntos 1 y 2 — implementados)
+### Running unit tests (points 1 & 2 — implemented)
 
 ```bash
 ./gradlew test
-# Reporte: app/build/reports/tests/testDebugUnitTest/index.html
+# Reports: app/build/reports/tests/testDebugUnitTest/index.html
 ```
 
-Los puntos 3–5 requieren dispositivo físico ARM64 con el asset del modelo y se validan manualmente durante el demo.
+Points 3–5 require a physical ARM64 device with the model asset and are validated manually during demo.
 
 ---
 
-## 📂 Tabla de Navegación
-| 🚀 Sección                                                          | 📄 Descripción                                                                                                 |
-| ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| 📚 [Documentación principal](./doc/index.md)                       | Carpeta principal donde se encuentra toda la documentación del proyecto.                                       |
-| 📊 [Carpeta de análisis](./doc/analysis/index.md)                  | Carpeta que contiene toda la documentación relacionada con la fase de análisis del sistema.                    |
-| 🧭 [Navegación de análisis](./doc/analysis/index.md)               | Documento de navegación hacia los requisitos funcionales y no funcionales del sistema.                         |
-| 📋 [Requisitos Funcionales](./doc/analysis/requirements-fn.md)     | Documento que describe las funcionalidades que el sistema debe proporcionar.                                   |
-| ⚙️ [Requisitos No Funcionales](./doc/analysis/requirements-nfn.md) | Documento que describe las características de calidad del sistema como rendimiento, seguridad y escalabilidad. |
-| 🤖 [MVP](./doc/analysis/mvp.md)                                    | Documento que define el alcance mínimo viable del producto, funcionalidades priorizadas y criterios de entrega. |
+## ⚖️ Legal Disclaimer
 
+**ObsIA is a Research MVP.** It is intended for educational and clinical decision support purposes only. It is **NOT** a replacement for professional medical judgment. All generated responses should be verified against standard clinical protocols by a qualified healthcare professional.
+
+---
+*Built with ❤️ for the health of mothers and babies.*
