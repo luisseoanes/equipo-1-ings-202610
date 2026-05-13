@@ -125,6 +125,47 @@ Points 3–5 require a physical ARM64 device with the model asset and are valida
 
 ---
 
+## 🛑 Project Limitations
+
+### 1. Clinical Scope
+- **Not a diagnostic system:** ObsIA is defined exclusively as a clinical decision support tool, not a replacement for autonomous professional diagnosis.
+- **Knowledge base scope:** Responses are limited to the clinical knowledge base loaded and versioned in the system.
+
+### 2. Technical Constraints (Hardware)
+- **Model capacity:** Due to mobile deployment, the model is limited to approximately 1B parameters to ensure technical viability.
+- **Device resources:** Performance is subject to severe RAM, CPU, and battery constraints of the target device.
+- **Aggressive optimization:** Offline execution requires heavy quantization and optimization of both the model and the RAG system.
+
+### 3. Deployment & Environment
+- **Device diversity:** Correct behavior may vary across hardware manufacturers, requiring additional multi-device testing effort.
+- **Updates:** As a strictly offline application, knowledge base updates require a manual reinstallation or data package update.
+
+---
+
+## 🧰 Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Android UI | Kotlin + Jetpack Compose |
+| Native AI Engine | C/C++ (llama.cpp, ARM64) |
+| Interoperability | JNI (Java Native Interface) |
+| LLM format | Quantized GGUF (Q4_K_M) |
+| Packaging | APK with bundled assets (model + RAG) |
+
+---
+
+## 📂 Documentation
+
+| Section | Link |
+|---|---|
+| Main documentation | [doc/index.md](./doc/index.md) |
+| Analysis folder | [doc/analysis/index.md](./doc/analysis/index.md) |
+| Functional requirements | [doc/analysis/requirements-fn.md](./doc/analysis/requirements-fn.md) |
+| Non-functional requirements | [doc/analysis/requirements-nfn.md](./doc/analysis/requirements-nfn.md) |
+| MVP definition | [doc/analysis/mvp.md](./doc/analysis/mvp.md) |
+
+---
+
 ## ⚖️ Legal Disclaimer
 
 **ObsIA is a Research MVP.** It is intended for educational and clinical decision support purposes only. It is **NOT** a replacement for professional medical judgment. All generated responses should be verified against standard clinical protocols by a qualified healthcare professional.
